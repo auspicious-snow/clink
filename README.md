@@ -16,11 +16,11 @@ streamTableEnvironment.executeSql("CREATE TABLE topic_products (\n" +
                 "info ROW<batch_id string,md5 STRING>\n" +
                 ") WITH (\n" +
                 " 'connector' = 'kafka',\n" +
-                " 'topic' = 'yx-Oms-mall_order_info-topic',\n" +
-                " 'properties.bootstrap.servers' = '192.168.3.100:9092,192.168.3.101:9092,192.168.3.102:9092',\n" +
+                " 'topic' = 'cxx',\n" +
+                " 'properties.bootstrap.servers' = '127.0.0.1:9092',\n" +
                 " 'properties.group.id' = 'testGroup',\n" +
                 " 'scan.startup.mode' = 'latest-offset',\n" +
-                " 'format' = 'dml-json'  -- using canal-json as the format\n" +
+                " 'format' = 'dml-json'  \n" +
                 ")");
 }
 ```
