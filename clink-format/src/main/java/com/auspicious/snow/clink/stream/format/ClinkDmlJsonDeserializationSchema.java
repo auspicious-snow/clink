@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-package com.auspicious.snow.clink.format;
+package com.auspicious.snow.clink.stream.format;
 
 import static java.lang.String.format;
 
-import com.auspicious.snow.clink.format.ClinkDmlJsonDecodingFormat.ReadableMetadata;
+import com.auspicious.snow.clink.stream.format.ClinkDmlJsonDecodingFormat.ReadableMetadata;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;

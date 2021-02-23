@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.auspicious.snow.clink.format;
+package com.auspicious.snow.clink.stream.format;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;

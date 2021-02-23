@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-package com.auspicious.snow.clink.format;
+package com.auspicious.snow.clink.stream.format;
 
-import com.auspicious.snow.clink.format.ClinkDmlJsonDeserializationSchema.MetadataConverter;
+import com.auspicious.snow.clink.stream.format.ClinkDmlJsonDeserializationSchema.MetadataConverter;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;

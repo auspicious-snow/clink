@@ -1,10 +1,5 @@
-package com.auspicious.snow.clink.format;
+package com.auspicious.snow.clink.stream.format;
 
-import static com.auspicious.snow.clink.format.ClinkDmlJsonTimeFormats.ISO8601_TIMESTAMP_FORMAT;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonTimeFormats.ISO8601_TIMESTAMP_WITH_LOCAL_TIMEZONE_FORMAT;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonTimeFormats.SQL_TIMESTAMP_FORMAT;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonTimeFormats.SQL_TIMESTAMP_WITH_LOCAL_TIMEZONE_FORMAT;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonTimeFormats.SQL_TIME_FORMAT;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 
 import java.io.IOException;
@@ -202,7 +197,7 @@ public class ClinkDmlJsonToRowDataConverters implements Serializable {
     }
 
     private int convertToTime(JsonNode jsonNode) {
-        TemporalAccessor parsedTime = SQL_TIME_FORMAT.parse(jsonNode.asText());
+        TemporalAccessor parsedTime = ClinkDmlJsonTimeFormats.SQL_TIME_FORMAT.parse(jsonNode.asText());
         LocalTime localTime = parsedTime.query(TemporalQueries.localTime());
 
         // get number of milliseconds of the day
@@ -213,10 +208,10 @@ public class ClinkDmlJsonToRowDataConverters implements Serializable {
         TemporalAccessor parsedTimestamp;
         switch (timestampFormat) {
             case SQL:
-                parsedTimestamp = SQL_TIMESTAMP_FORMAT.parse(jsonNode.asText());
+                parsedTimestamp = ClinkDmlJsonTimeFormats.SQL_TIMESTAMP_FORMAT.parse(jsonNode.asText());
                 break;
             case ISO_8601:
-                parsedTimestamp = ISO8601_TIMESTAMP_FORMAT.parse(jsonNode.asText());
+                parsedTimestamp = ClinkDmlJsonTimeFormats.ISO8601_TIMESTAMP_FORMAT.parse(jsonNode.asText());
                 break;
             default:
                 throw new TableException(String.format("Unsupported timestamp format '%s'. Validator should have checked that.", timestampFormat));
@@ -231,10 +226,10 @@ public class ClinkDmlJsonToRowDataConverters implements Serializable {
         TemporalAccessor parsedTimestampWithLocalZone;
         switch (timestampFormat){
             case SQL:
-                parsedTimestampWithLocalZone = SQL_TIMESTAMP_WITH_LOCAL_TIMEZONE_FORMAT.parse(jsonNode.asText());
+                parsedTimestampWithLocalZone = ClinkDmlJsonTimeFormats.SQL_TIMESTAMP_WITH_LOCAL_TIMEZONE_FORMAT.parse(jsonNode.asText());
                 break;
             case ISO_8601:
-                parsedTimestampWithLocalZone = ISO8601_TIMESTAMP_WITH_LOCAL_TIMEZONE_FORMAT.parse(jsonNode.asText());
+                parsedTimestampWithLocalZone = ClinkDmlJsonTimeFormats.ISO8601_TIMESTAMP_WITH_LOCAL_TIMEZONE_FORMAT.parse(jsonNode.asText());
                 break;
             default:
                 throw new TableException(String.format("Unsupported timestamp format '%s'. Validator should have checked that.", timestampFormat));

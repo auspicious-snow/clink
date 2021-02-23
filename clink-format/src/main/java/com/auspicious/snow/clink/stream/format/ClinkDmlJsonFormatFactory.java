@@ -16,18 +16,9 @@
  * limitations under the License.
  */
 
-package com.auspicious.snow.clink.format;
+package com.auspicious.snow.clink.stream.format;
 
 
-
-import static com.auspicious.snow.clink.format.ClinkDmlJsonOptions.DATABASE_INCLUDE;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonOptions.IGNORE_PARSE_ERRORS;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonOptions.JSON_MAP_NULL_KEY_LITERAL;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonOptions.JSON_MAP_NULL_KEY_MODE;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonOptions.TABLE_INCLUDE;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonOptions.TIMESTAMP_FORMAT;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonOptions.validateDecodingFormatOptions;
-import static com.auspicious.snow.clink.format.ClinkDmlJsonOptions.validateEncodingFormatOptions;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -64,11 +55,11 @@ public class ClinkDmlJsonFormatFactory
     public DecodingFormat<DeserializationSchema<RowData>> createDecodingFormat(
             DynamicTableFactory.Context context, ReadableConfig formatOptions) {
         FactoryUtil.validateFactoryOptions(this, formatOptions);
-        validateDecodingFormatOptions(formatOptions);
+        ClinkDmlJsonOptions.validateDecodingFormatOptions(formatOptions);
 
-        final String database = formatOptions.getOptional(DATABASE_INCLUDE).orElse(null);
-        final String table = formatOptions.getOptional(TABLE_INCLUDE).orElse(null);
-        final boolean ignoreParseErrors = formatOptions.get(IGNORE_PARSE_ERRORS);
+        final String database = formatOptions.getOptional(ClinkDmlJsonOptions.DATABASE_INCLUDE).orElse(null);
+        final String table = formatOptions.getOptional(ClinkDmlJsonOptions.TABLE_INCLUDE).orElse(null);
+        final boolean ignoreParseErrors = formatOptions.get(ClinkDmlJsonOptions.IGNORE_PARSE_ERRORS);
         final TimestampFormat timestampFormat = JsonOptions.getTimestampFormat(formatOptions);
 
         return new ClinkDmlJsonDecodingFormat(database, table, ignoreParseErrors, timestampFormat);
@@ -79,11 +70,11 @@ public class ClinkDmlJsonFormatFactory
             DynamicTableFactory.Context context, ReadableConfig formatOptions) {
 
         FactoryUtil.validateFactoryOptions(this, formatOptions);
-        validateEncodingFormatOptions(formatOptions);
+        ClinkDmlJsonOptions.validateEncodingFormatOptions(formatOptions);
 
         TimestampFormat timestampFormat = JsonOptions.getTimestampFormat(formatOptions);
         JsonOptions.MapNullKeyMode mapNullKeyMode = JsonOptions.getMapNullKeyMode(formatOptions);
-        String mapNullKeyLiteral = formatOptions.get(JSON_MAP_NULL_KEY_LITERAL);
+        String mapNullKeyLiteral = formatOptions.get(ClinkDmlJsonOptions.JSON_MAP_NULL_KEY_LITERAL);
 
         return new EncodingFormat<SerializationSchema<RowData>>() {
             @Override
@@ -119,12 +110,12 @@ public class ClinkDmlJsonFormatFactory
     @Override
     public Set<ConfigOption<?>> optionalOptions() {
         Set<ConfigOption<?>> options = new HashSet<>();
-        options.add(IGNORE_PARSE_ERRORS);
-        options.add(TIMESTAMP_FORMAT);
-        options.add(DATABASE_INCLUDE);
-        options.add(TABLE_INCLUDE);
-        options.add(JSON_MAP_NULL_KEY_MODE);
-        options.add(JSON_MAP_NULL_KEY_LITERAL);
+        options.add(ClinkDmlJsonOptions.IGNORE_PARSE_ERRORS);
+        options.add(ClinkDmlJsonOptions.TIMESTAMP_FORMAT);
+        options.add(ClinkDmlJsonOptions.DATABASE_INCLUDE);
+        options.add(ClinkDmlJsonOptions.TABLE_INCLUDE);
+        options.add(ClinkDmlJsonOptions.JSON_MAP_NULL_KEY_MODE);
+        options.add(ClinkDmlJsonOptions.JSON_MAP_NULL_KEY_LITERAL);
         return options;
     }
 }

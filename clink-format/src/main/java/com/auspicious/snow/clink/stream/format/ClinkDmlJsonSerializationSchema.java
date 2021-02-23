@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.auspicious.snow.clink.format;
+package com.auspicious.snow.clink.stream.format;
 
 import static org.apache.flink.table.types.utils.TypeConversions.fromLogicalToDataType;
 

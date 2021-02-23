@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.auspicious.snow.clink.format;
+package com.auspicious.snow.clink.stream.format;
 
 import static java.lang.String.format;
 import static org.apache.flink.util.Preconditions.checkNotNull;
