@@ -4,6 +4,7 @@ import com.auspicious.snow.clink.common.PropertiesConstants;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -24,12 +25,12 @@ public class KafkaSource {
         //默认的并行度是和cpu的核数一样
         env.setParallelism(1);
         Map<String, String> pro = new HashMap();
-        pro.put(PropertiesConstants.FLINK_KAFKA_BOOTSTRAP_SERVERS,"192.168.3.102:9092");
+        pro.put(PropertiesConstants.FLINK_KAFKA_BOOTSTRAP_SERVERS,"192.168.1.111:9092");
         pro.put(PropertiesConstants.FLINK_KAFKA_GROUP_ID,"clink");
         ParameterTool parameterTool = ParameterTool.fromMap(pro);
         Properties properties = KafkaUtils.buildKafkaConfig(parameterTool);
         //获取kafkaConsumer
-        FlinkKafkaConsumer kafkaConsumer = KafkaUtils.getFlinkKafkaConsumer("snow", StartupMode.LATEST, properties);
+        FlinkKafkaConsumer kafkaConsumer = KafkaUtils.getFlinkKafkaConsumer("snow",new SimpleStringSchema(), StartupMode.TIMESTAMP, properties,1631635200000L);
         DataStreamSource source = env.addSource(kafkaConsumer);
         source.print();
         env.execute("kafka source");
